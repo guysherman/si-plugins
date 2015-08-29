@@ -33,6 +33,22 @@ Its that simple, look in the `bin` folder and you'll have the plugin(s) built. Y
 to the right place to use them, I found that /usr/local/lib/ladspa and /usr/local/lib/lv2 worked respectively for
 ladspa and lv2.
 
+
+# Plugins
+
+## SI-D1 - SI Distortion #1
+This is a really basic ditortion, based off the idea of how a simple analogue overdrive works: a diode network is used
+such that when the voltage gets high enough, some current flows backgwards through the diode to ground. This way, there is
+a hard limit on the voltage across the output. So I did the same with the plugin - it's really rough overdrive because it
+is very hard clipping, literally a set of conditional statements clamping the output.
+
+There are three knobs on the plugin: Gain, Bias and Range.
+	*	Gain controls the pre-amplification
+	*	Bias controls where the centre of the clipping range is, but it is not a DC bias applied to the signal,
+		rather it is a bias applied to the clipping thresholds.
+	*	Range sets the distance between the clipping thresholds. So, with a bias of 0 and a range of 1, signals will clip at +/- 0.5.
+	
+
 # Other notes
 
 Feel free to learn from what I have put here, and I certainly welcome any constructive comments.
