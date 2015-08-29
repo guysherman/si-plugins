@@ -85,6 +85,7 @@ SiD1Ui::SiD1Ui()
 			break;
 			case SiD1Plugin::paramBias:
 			biasKnob->setValue(value);
+			break;
 			case SiD1Plugin::paramDistance:
 			distanceKnob->setValue(value);
 			break;
