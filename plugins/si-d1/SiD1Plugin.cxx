@@ -38,9 +38,9 @@ namespace sherman
 {
     SiD1Plugin::SiD1Plugin()
         : Plugin(paramCount, 1, 0),
-        gainDb(0.0f), gainCoeff(0.0f),
-        bias(0.0f),
-        active(0.0f), distance(0.0f), negClip(0.0f), posClip(0.0f)
+        gainDb(18.0f), gainCoeff(7.943f),
+        bias(0.3f),
+        active(1.0f), distance(1.2f), negClip(0.0f), posClip(0.0f)
     {
         loadProgram(0);
 
@@ -55,7 +55,7 @@ namespace sherman
         }
 
         gainDb = 18.0f;
-        bias = 0.6f;
+        bias = 0.3f;
         distance = 1.2f;
 
         activate();
