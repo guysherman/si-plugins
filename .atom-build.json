@@ -1,0 +1,15 @@
+{
+	"cmd": "make",
+	"name": "Release",
+	"sh": "true",
+	"targets": {
+		"Debug": {
+			"cmd": "make debug",
+			"sh": "true"
+		},
+		"Clean": {
+			"cmd": "make clean",
+			"sh": "true"
+		}
+	}
+}
