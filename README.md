@@ -18,10 +18,10 @@ look at https://github.com/guysherman/MINGW-packages.git
 
 ## Dependencies
 You'll need the following installed such that you can build against them (ie you need headers and libs):
-	*	jack
-	*	liblo	(if you want OSC in your plugins)
-	*	LV2 (lv2-dev)
-	*	LADSPA (ladspa-sdk)
+*	jack
+*	liblo	(if you want OSC in your plugins)
+*	LV2 (lv2-dev)
+*	LADSPA (ladspa-sdk)
 
 ## Compiling
 
@@ -43,11 +43,11 @@ a hard limit on the voltage across the output. So I did the same with the plugin
 is very hard clipping, literally a set of conditional statements clamping the output.
 
 There are three knobs on the plugin: Gain, Bias and Range.
-	*	Gain controls the pre-amplification
-	*	Bias controls where the centre of the clipping range is, but it is not a DC bias applied to the signal,
-		rather it is a bias applied to the clipping thresholds.
-	*	Range sets the distance between the clipping thresholds. So, with a bias of 0 and a range of 1, signals will clip at +/- 0.5.
-	
+*	Gain controls the pre-amplification
+*	Bias controls where the centre of the clipping range is, but it is not a DC bias applied to the signal,
+	rather it is a bias applied to the clipping thresholds.
+*	Range sets the distance between the clipping thresholds. So, with a bias of 0 and a range of 1, signals will clip at +/- 0.5.
+
 
 # Other notes
 
