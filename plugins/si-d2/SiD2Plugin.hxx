@@ -17,8 +17,8 @@
 
 */
 
-#ifndef __SID1PLUGIN_HXX__
-#define __SID1PLUGIN_HXX__
+#ifndef __SiD2Plugin_HXX__
+#define __SiD2Plugin_HXX__
 
 // C++ Standard Headers
 
@@ -37,7 +37,7 @@
 
 namespace sherman
 {
-	class SiD1Plugin : public Plugin
+	class SiD2Plugin : public Plugin
 	{
 	public:
 		enum Parameters
@@ -48,13 +48,13 @@ namespace sherman
 			paramCount
 		};
 
-		SiD1Plugin();
-		virtual ~SiD1Plugin();
+		SiD2Plugin();
+		virtual ~SiD2Plugin();
 
 	protected:
 		const char* getLabel() const noexcept override
     {
-        return "Distortion";
+        return "Distortion-2";
     }
 
     const char* getMaker() const noexcept override
@@ -74,7 +74,7 @@ namespace sherman
 
     int64_t getUniqueId() const noexcept override
     {
-        return d_cconst('S', 'I', 'D', '1');
+        return d_cconst('S', 'I', 'D', '2');
     }
 
     // -------------------------------------------------------------------
@@ -132,11 +132,11 @@ namespace sherman
 		int upConverterError;
 		int downConverterError;
 
-		DISTRHO_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SiD1Plugin)
+		DISTRHO_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SiD2Plugin)
 	};
 }
 
 
 
 
-#endif // __SID1PLUGIN_HXX__
+#endif // __SiD2Plugin_HXX__
