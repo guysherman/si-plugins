@@ -16,12 +16,19 @@ The system uses a fairly straight forward set of make files, but you'll need to 
 first. If you're trying to build on Windows, I recommend using MSYS2, and if you can't find any packages
 look at https://github.com/guysherman/MINGW-packages.git
 
+Make sure you get the submodules as well
+
+```
+$ git submodule update --init
+```
+
 ## Dependencies
 You'll need the following installed such that you can build against them (ie you need headers and libs):
 *	jack
 *	liblo	(if you want OSC in your plugins)
 *	LV2 (lv2-dev)
 *	LADSPA (ladspa-sdk)
+*	libsamplerate (http://www.mega-nerd.com/SRC/)
 
 ## Compiling
 
@@ -47,6 +54,16 @@ There are three knobs on the plugin: Gain, Bias and Range.
 *	Bias controls where the centre of the clipping range is, but it is not a DC bias applied to the signal,
 	rather it is a bias applied to the clipping thresholds.
 *	Range sets the distance between the clipping thresholds. So, with a bias of 0 and a range of 1, signals will clip at +/- 0.5.
+
+## SI-D2 - SI Distorion #2
+This is a slightly more advanced distortion - tanh(ax) where `a` is a coefficient that can range from 0.5 to 2, and x is the input sample. This gives a smooth(ish) edge to the clipping, which the user can control with the 'Slope' parameter.
+
+There are three knobs:
+*	Gain - pre-amplification
+*	Slope - the coefficient `a` in tanh(ax)\
+*	Level - essentially an attenuator (in case it gets too loud)
+
+
 
 
 # Other notes
