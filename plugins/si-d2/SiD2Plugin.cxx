@@ -22,58 +22,60 @@
 
 // C Standard Headers
 #include <cmath>
+#include <cassert>
+#include <stdio.h>
 
 // Boost Headers
 
 
 // 3rd Party Headers
-
+#include <samplerate.h>
 
 // GTK Headers
 
 
-#include "SiD1Plugin.hxx"
+#include "SiD2Plugin.hxx"
 
 namespace sherman
 {
-    SiD1Plugin::SiD1Plugin()
+    SiD2Plugin::SiD2Plugin()
         : Plugin(paramCount, 1, 0),
         gainDb(18.0f), gainCoeff(7.943f),
         bias(0.3f),
         active(1.0f), distance(1.2f), negClip(0.0f), posClip(0.0f), upConverter(NULL), downConverter(NULL), upConverterError(0), downConverterError(0)
     {
-      memset(&resampled_1, 0x00, 4096);
-      memset(&resampled_2, 0x00, 4096);
+        memset(&resampled_1, 0x00, 4096);
+        memset(&resampled_2, 0x00, 4096);
 
-      upConverter = src_new(SRC_SINC_BEST_QUALITY, 1, &upConverterError);
-      downConverter = src_new(SRC_SINC_BEST_QUALITY, 1, &downConverterError);
+        upConverter = src_new(SRC_SINC_BEST_QUALITY, 1, &upConverterError);
+        downConverter = src_new(SRC_SINC_BEST_QUALITY, 1, &downConverterError);
 
         loadProgram(0);
 
         deactivate();
     }
 
-    SiD1Plugin::~SiD1Plugin()
+    SiD2Plugin::~SiD2Plugin()
     {
         src_delete(upConverter);
         src_delete(downConverter);
     }
 
-    void  SiD1Plugin::loadProgram(uint32_t index)
+    void  SiD2Plugin::loadProgram(uint32_t index)
     {
         if (index != 0)
         {
             return;
         }
 
-        gainDb = 18.0f;
-        bias = 0.3f;
-        distance = 1.2f;
+        gainDb = 30.0f;
+        bias = 1.0f;
+        distance = 1.0f;
 
         activate();
     }
 
-    void SiD1Plugin::activate()
+    void SiD2Plugin::activate()
     {
         gainCoeff = pow(10, 0.05 * gainDb);
         src_reset(upConverter);
@@ -82,18 +84,18 @@ namespace sherman
         active = 1.0f;
     }
 
-    void SiD1Plugin::recalculateClips()
+    void SiD2Plugin::recalculateClips()
     {
         posClip = distance / 2.0f + bias;
         negClip = -1.0f * (distance / 2.0f) + bias;
     }
 
-    void SiD1Plugin::deactivate()
+    void SiD2Plugin::deactivate()
     {
         active = 0.0f;
     }
 
-    void SiD1Plugin::initParameter(uint32_t index, Parameter& parameter)
+    void SiD2Plugin::initParameter(uint32_t index, Parameter& parameter)
     {
         switch (index)
         {
@@ -110,7 +112,7 @@ namespace sherman
         }
     }
 
-    void SiD1Plugin::setupParamGain(Parameter& parameter)
+    void SiD2Plugin::setupParamGain(Parameter& parameter)
     {
         parameter.hints = kParameterIsAutomable;
         parameter.name = "Gain";
@@ -121,18 +123,18 @@ namespace sherman
         parameter.ranges.max = 48.0f;
     }
 
-    void SiD1Plugin::setupParamBias(Parameter& parameter)
+    void SiD2Plugin::setupParamBias(Parameter& parameter)
     {
         parameter.hints = kParameterIsAutomable;
         parameter.name = "Bias";
         parameter.symbol = "bias";
         parameter.unit = "";
-        parameter.ranges.def = 0.0f;
-        parameter.ranges.min = -1.0f;
-        parameter.ranges.max = 1.0f;
+        parameter.ranges.def = 1.0f;
+        parameter.ranges.min = 0.5f;
+        parameter.ranges.max = 2.0f;
     }
 
-    void SiD1Plugin::setupParamDistance(Parameter& parameter)
+    void SiD2Plugin::setupParamDistance(Parameter& parameter)
     {
         parameter.hints = kParameterIsAutomable;
         parameter.name = "Distance";
@@ -140,10 +142,10 @@ namespace sherman
         parameter.unit = "";
         parameter.ranges.def = 0.0f;
         parameter.ranges.min = 0.0f;
-        parameter.ranges.max = 2.0f;
+        parameter.ranges.max = 1.0f;
     }
 
-    void SiD1Plugin::initProgramName(uint32_t index, String& programName)
+    void SiD2Plugin::initProgramName(uint32_t index, String& programName)
     {
         if (index != 0)
         {
@@ -156,7 +158,7 @@ namespace sherman
     // -------------------------------------------------------------------
     // Internal data
 
-    float SiD1Plugin::getParameterValue(uint32_t index) const
+    float SiD2Plugin::getParameterValue(uint32_t index) const
     {
         // [db] = 20 * log ([coeff])
         // the inverse is  coeff = 10^(0.05 * [db])
@@ -175,22 +177,22 @@ namespace sherman
         return 0;
     }
 
-    float SiD1Plugin::getGain() const
+    float SiD2Plugin::getGain() const
     {
         return gainDb;
     }
 
-    float SiD1Plugin::getBias() const
+    float SiD2Plugin::getBias() const
     {
         return bias;
     }
 
-    float SiD1Plugin::getDistance() const
+    float SiD2Plugin::getDistance() const
     {
         return distance;
     }
 
-    void  SiD1Plugin::setParameterValue(uint32_t index, float value)
+    void  SiD2Plugin::setParameterValue(uint32_t index, float value)
     {
         switch (index)
         {
@@ -207,19 +209,19 @@ namespace sherman
         }
     }
 
-    void SiD1Plugin::setGain(float gain)
+    void SiD2Plugin::setGain(float gain)
     {
         gainDb = gain;
         gainCoeff = pow(10, 0.05 * gainDb);
     }
 
-    void SiD1Plugin::setBias(float bias)
+    void SiD2Plugin::setBias(float bias)
     {
         this->bias = bias;
         recalculateClips();
     }
 
-    void SiD1Plugin::setDistance(float distance)
+    void SiD2Plugin::setDistance(float distance)
     {
         this->distance = distance;
         recalculateClips();
@@ -227,7 +229,7 @@ namespace sherman
 
 
 
-    void SiD1Plugin::run(const float** inputs, float** outputs, uint32_t frames)
+    void SiD2Plugin::run(const float** inputs, float** outputs, uint32_t frames)
     {
         const float* in1  = &inputs[0][0];
         float*       out1 = &outputs[0][0];
@@ -244,13 +246,19 @@ namespace sherman
 
         src_process(upConverter, &args_in);
 
+        //printf("Num frames: %d, Num gen frames: %d, frames * 2: %d", frames, args_in.output_frames_gen, frames * 2 + 1);
+        //assert(args_in.output_frames_gen == frames * 2);
+
         for (uint32_t i = 0; i < args_in.output_frames_gen; ++i)
+        //for (uint32_t i = 0; i < frames; ++i)
         {
             float amplified1 = (resampled_1[i]) * gainCoeff;
 
-            float clipped1 = (amplified1 < negClip) ? negClip : ((amplified1 > posClip) ? posClip : amplified1);
+            float result = this->distance *tanh(this->bias * amplified1);
+            //float result = tanh(4*in1[i]);
 
-            resampled_2[i] = clipped1 * active;
+            resampled_2[i] = result * active;
+            //out1[i] = result * active;
         }
 
         SRC_DATA args_out;
@@ -264,6 +272,9 @@ namespace sherman
         args_out.src_ratio = 0.5;
 
         src_process(downConverter, &args_out);
+        //printf("Num frames: %d, Num gen frames: %d, frames * 2: %d", args_in.input_frames_used, args_out.output_frames_gen, args_in.input_frames_used * 0.5);
+        //assert(args_in.output_frames_gen == frames * 2);
+
     }
 
 
@@ -273,7 +284,7 @@ START_NAMESPACE_DISTRHO
 
 Plugin* createPlugin()
 {
-    return new sherman::SiD1Plugin();
+    return new sherman::SiD2Plugin();
 }
 
 END_NAMESPACE_DISTRHO

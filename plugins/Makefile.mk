@@ -20,6 +20,8 @@ TARGET_DIR = ../../bin
 BUILD_C_FLAGS   += -I.
 BUILD_CXX_FLAGS += -I. -I../../dpf/distrho -I../../dpf/dgl
 
+LINK_FLAGS += -lsamplerate
+
 ifeq ($(HAVE_DGL),true)
 BASE_FLAGS += -DHAVE_DGL
 endif
