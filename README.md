@@ -60,7 +60,7 @@ This is a slightly more advanced distortion - tanh(ax) where `a` is a coefficien
 
 There are three knobs:
 *	Gain - pre-amplification
-*	Slope - the coefficient `a` in tanh(ax)\
+*	Slope - the coefficient `a` in tanh(ax)
 *	Level - essentially an attenuator (in case it gets too loud)
 
 
