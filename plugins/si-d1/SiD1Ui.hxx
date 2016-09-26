@@ -51,19 +51,19 @@ namespace sherman
 
 	protected:
 		// -------------------------------------------------------------------
-	    // DSP Callbacks
+		// DSP Callbacks
 
-	    void parameterChanged(uint32_t index, float value) override;
-	    void programLoaded(uint32_t index) override;
+		void parameterChanged(uint32_t index, float value) override;
+		void programLoaded(uint32_t index) override;
 
-	    // -------------------------------------------------------------------
-	    // Widget Callbacks
+		// -------------------------------------------------------------------
+		// Widget Callbacks
 
-	    void imageKnobDragStarted(ImageKnob* knob) override;
-	    void imageKnobDragFinished(ImageKnob* knob) override;
-	    void imageKnobValueChanged(ImageKnob* knob, float value) override;
+		void imageKnobDragStarted(ImageKnob* knob) override;
+		void imageKnobDragFinished(ImageKnob* knob) override;
+		void imageKnobValueChanged(ImageKnob* knob, float value) override;
 
-	    void onDisplay() override;
+		void onDisplay() override;
 
 	private:
 		Image backgroundImage;
