@@ -43,8 +43,8 @@ namespace sherman
 		enum Parameters
 		{
 			paramGain = 0,
-			paramBias,
-			paramDistance,
+			paramSlope,
+			paramLevel,
 			paramCount
 		};
 
@@ -53,75 +53,71 @@ namespace sherman
 
 	protected:
 		const char* getLabel() const noexcept override
-    {
-        return "Distortion-2";
-    }
+	{
+		return "Distortion-2";
+	}
 
-    const char* getMaker() const noexcept override
-    {
-        return "SHERMAN";
-    }
+	const char* getMaker() const noexcept override
+	{
+		return "SHERMAN";
+	}
 
-    const char* getLicense() const noexcept override
-    {
-        return "LGPL";
-    }
+	const char* getLicense() const noexcept override
+	{
+		return "LGPL";
+	}
 
-    uint32_t getVersion() const noexcept override
-    {
-        return 0x1000;
-    }
+	uint32_t getVersion() const noexcept override
+	{
+		return 0x1000;
+	}
 
-    int64_t getUniqueId() const noexcept override
-    {
-        return d_cconst('S', 'I', 'D', '2');
-    }
+	int64_t getUniqueId() const noexcept override
+	{
+		return d_cconst('S', 'I', 'D', '2');
+	}
 
-    // -------------------------------------------------------------------
-    // Init
+	// -------------------------------------------------------------------
+	// Init
 
-    void initParameter(uint32_t index, Parameter& parameter) override;
-    void initProgramName(uint32_t index, String& programName) override;
+	void initParameter(uint32_t index, Parameter& parameter) override;
+	void initProgramName(uint32_t index, String& programName) override;
 
-    // -------------------------------------------------------------------
-    // Internal data
+	// -------------------------------------------------------------------
+	// Internal data
 
-    float getParameterValue(uint32_t index) const override;
-    void  setParameterValue(uint32_t index, float value) override;
-    void  loadProgram(uint32_t index) override;
+	float getParameterValue(uint32_t index) const override;
+	void  setParameterValue(uint32_t index, float value) override;
+	void  loadProgram(uint32_t index) override;
 
-    // -------------------------------------------------------------------
-    // Process
+	// -------------------------------------------------------------------
+	// Process
 
-    void activate() override;
-    void deactivate() override;
-    void run(const float** inputs, float** outputs, uint32_t frames) override;
+	void activate() override;
+	void deactivate() override;
+	void run(const float** inputs, float** outputs, uint32_t frames) override;
 
-    // -------------------------------------------------------------------
+	// -------------------------------------------------------------------
 
 	private:
 		void setupParamGain(Parameter& parameter);
-		void setupParamBias(Parameter& parameter);
-		void setupParamDistance(Parameter& parameter);
+		void setupParamSlope(Parameter& parameter);
+		void setupParamLevel(Parameter& parameter);
 
 		void setGain(float gain);
 		float getGain() const;
 
-		void setBias(float bias);
-		float getBias() const;
+		void setSlope(float slope);
+		float getSlope() const;
 
-		void setDistance(float distance);
-		float getDistance() const;
+		void setLevel(float level);
+		float getLevel() const;
 
-		void recalculateClips();
 
 		float gainDb;
 		float gainCoeff;
-		float bias;
-		float distance;
-		float posClip;
-		float negClip;
-
+		float slope;
+		float level;
 		float active;
 
 		float resampled_1[4096];

@@ -53,21 +53,21 @@ SiD2Ui::SiD2Ui()
 	gainKnob->setRotationAngle(240);
 	gainKnob->setCallback(this);
 
-	biasKnob = new ImageKnob(this, knobImage, ImageKnob::Vertical);
-	biasKnob->setId(SiD2Plugin::paramBias);
-	biasKnob->setAbsolutePos(115, 17);
-	biasKnob->setRange(0.5f, 2.0f);
-	biasKnob->setDefault(1.0f);
-	biasKnob->setRotationAngle(240);
-	biasKnob->setCallback(this);
+	slopeKnob = new ImageKnob(this, knobImage, ImageKnob::Vertical);
+	slopeKnob->setId(SiD2Plugin::paramSlope);
+	slopeKnob->setAbsolutePos(115, 17);
+	slopeKnob->setRange(0.5f, 2.0f);
+	slopeKnob->setDefault(1.0f);
+	slopeKnob->setRotationAngle(240);
+	slopeKnob->setCallback(this);
 
-	distanceKnob = new ImageKnob(this, knobImage, ImageKnob::Vertical);
-	distanceKnob->setId(SiD2Plugin::paramDistance);
-	distanceKnob->setAbsolutePos(215, 17);
-	distanceKnob->setRange(0.0f, 1.0f);
-	distanceKnob->setDefault(1.0f);
-	distanceKnob->setRotationAngle(240);
-	distanceKnob->setCallback(this);
+	levelKnob = new ImageKnob(this, knobImage, ImageKnob::Vertical);
+	levelKnob->setId(SiD2Plugin::paramLevel);
+	levelKnob->setAbsolutePos(215, 17);
+	levelKnob->setRange(0.0f, 1.0f);
+	levelKnob->setDefault(1.0f);
+	levelKnob->setRotationAngle(240);
+	levelKnob->setCallback(this);
 
 	programLoaded(0);
 }
@@ -83,11 +83,11 @@ SiD2Ui::SiD2Ui()
 			case SiD2Plugin::paramGain:
 			gainKnob->setValue(value);
 			break;
-			case SiD2Plugin::paramBias:
-			biasKnob->setValue(value);
+			case SiD2Plugin::paramSlope:
+			slopeKnob->setValue(value);
 			break;
-			case SiD2Plugin::paramDistance:
-			distanceKnob->setValue(value);
+			case SiD2Plugin::paramLevel:
+			levelKnob->setValue(value);
 			break;
 		}
 	}

@@ -1,0 +1,17 @@
+All final plugin builds will be placed in this folder.
+
+There is no "make install" process, simply copy those files to their appropriate place.
+
+For example, LV2 plugins can go in $PREFIX/lib/lv2, or $HOME/.lv2, so to 'install' the plugins per-use do the following:
+
+```
+$ mkdir -p $HOME/.lv2
+$ cp -R *.lv2 $HOME/.lv2
+```
+
+or for the whole system:
+
+```
+$ sudo mkdir -p $PREFIX/lv2
+$ sudo cp -R *.lv2 $PREFIX/lv2
+```
