@@ -41,8 +41,8 @@ namespace sherman
     SiD2Plugin::SiD2Plugin()
         : Plugin(paramCount, 1, 0),
         gainDb(18.0f), gainCoeff(7.943f),
-        bias(0.3f),
-        active(1.0f), distance(1.2f), negClip(0.0f), posClip(0.0f), upConverter(NULL), downConverter(NULL), upConverterError(0), downConverterError(0)
+        slope(0.3f),
+        active(1.0f), level(1.2f), upConverter(NULL), downConverter(NULL), upConverterError(0), downConverterError(0)
     {
         memset(&resampled_1, 0x00, 4096);
         memset(&resampled_2, 0x00, 4096);
@@ -69,8 +69,8 @@ namespace sherman
         }
 
         gainDb = 30.0f;
-        bias = 1.0f;
-        distance = 1.0f;
+        slope = 1.0f;
+        level = 1.0f;
 
         activate();
     }
@@ -80,14 +80,7 @@ namespace sherman
         gainCoeff = pow(10, 0.05 * gainDb);
         src_reset(upConverter);
         src_reset(downConverter);
-        recalculateClips();
         active = 1.0f;
-    }
-
-    void SiD2Plugin::recalculateClips()
-    {
-        posClip = distance / 2.0f + bias;
-        negClip = -1.0f * (distance / 2.0f) + bias;
     }
 
     void SiD2Plugin::deactivate()
@@ -102,11 +95,11 @@ namespace sherman
             case paramGain:
                 setupParamGain(parameter);
                 break;
-            case paramBias:
-                setupParamBias(parameter);
+            case paramSlope:
+                setupParamSlope(parameter);
                 break;
-            case paramDistance:
-                setupParamDistance(parameter);
+            case paramLevel:
+                setupParamLevel(parameter);
                 break;
 
         }
@@ -123,22 +116,22 @@ namespace sherman
         parameter.ranges.max = 48.0f;
     }
 
-    void SiD2Plugin::setupParamBias(Parameter& parameter)
+    void SiD2Plugin::setupParamSlope(Parameter& parameter)
     {
         parameter.hints = kParameterIsAutomable;
-        parameter.name = "Bias";
-        parameter.symbol = "bias";
+        parameter.name = "Slope";
+        parameter.symbol = "slope";
         parameter.unit = "";
         parameter.ranges.def = 1.0f;
         parameter.ranges.min = 0.5f;
         parameter.ranges.max = 2.0f;
     }
 
-    void SiD2Plugin::setupParamDistance(Parameter& parameter)
+    void SiD2Plugin::setupParamLevel(Parameter& parameter)
     {
         parameter.hints = kParameterIsAutomable;
-        parameter.name = "Distance";
-        parameter.symbol = "distance";
+        parameter.name = "Level";
+        parameter.symbol = "level";
         parameter.unit = "";
         parameter.ranges.def = 0.0f;
         parameter.ranges.min = 0.0f;
@@ -167,10 +160,10 @@ namespace sherman
         {
             case paramGain:
                 return getGain();
-            case paramBias:
-                return getBias();
-            case paramDistance:
-                return getDistance();
+            case paramSlope:
+                return getSlope();
+            case paramLevel:
+                return getLevel();
 
         }
 
@@ -182,14 +175,14 @@ namespace sherman
         return gainDb;
     }
 
-    float SiD2Plugin::getBias() const
+    float SiD2Plugin::getSlope() const
     {
-        return bias;
+        return slope;
     }
 
-    float SiD2Plugin::getDistance() const
+    float SiD2Plugin::getLevel() const
     {
-        return distance;
+        return level;
     }
 
     void  SiD2Plugin::setParameterValue(uint32_t index, float value)
@@ -199,11 +192,11 @@ namespace sherman
             case paramGain:
                 setGain(value);
                 break;
-            case paramBias:
-                setBias(value);
+            case paramSlope:
+                setSlope(value);
                 break;
-            case paramDistance:
-                setDistance(value);
+            case paramLevel:
+                setLevel(value);
                 break;
 
         }
@@ -215,16 +208,14 @@ namespace sherman
         gainCoeff = pow(10, 0.05 * gainDb);
     }
 
-    void SiD2Plugin::setBias(float bias)
+    void SiD2Plugin::setSlope(float slope)
     {
-        this->bias = bias;
-        recalculateClips();
+        this->slope = slope;
     }
 
-    void SiD2Plugin::setDistance(float distance)
+    void SiD2Plugin::setLevel(float level)
     {
-        this->distance = distance;
-        recalculateClips();
+        this->level = level;
     }
 
 
@@ -246,15 +237,14 @@ namespace sherman
 
         src_process(upConverter, &args_in);
 
-        //printf("Num frames: %d, Num gen frames: %d, frames * 2: %d", frames, args_in.output_frames_gen, frames * 2 + 1);
-        //assert(args_in.output_frames_gen == frames * 2);
+
 
         for (uint32_t i = 0; i < args_in.output_frames_gen; ++i)
         //for (uint32_t i = 0; i < frames; ++i)
         {
             float amplified1 = (resampled_1[i]) * gainCoeff;
 
-            float result = this->distance *tanh(this->bias * amplified1);
+            float result = this->level *tanh(this->slope * amplified1);
             //float result = tanh(4*in1[i]);
 
             resampled_2[i] = result * active;

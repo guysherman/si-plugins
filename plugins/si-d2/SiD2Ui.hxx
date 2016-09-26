@@ -69,8 +69,8 @@ namespace sherman
 		Image backgroundImage;
 
 		ScopedPointer<ImageKnob> gainKnob;
-		ScopedPointer<ImageKnob> biasKnob;
-		ScopedPointer<ImageKnob> distanceKnob;
+		ScopedPointer<ImageKnob> slopeKnob;
+		ScopedPointer<ImageKnob> levelKnob;
 
 
 		DISTRHO_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SiD2Ui);

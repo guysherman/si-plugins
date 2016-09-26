@@ -20,3 +20,4 @@ bin/roomy
 
 *.gch
 bin/
+!bin/README
