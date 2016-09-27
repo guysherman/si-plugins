@@ -23,6 +23,7 @@ plugins: libs
 	#$(MAKE) all -C plugins/States
 	$(MAKE) all -C plugins/si-d1
 	$(MAKE) all -C plugins/si-d2
+	$(MAKE) all -C plugins/si-l1
 
 gen: plugins dpf/utils/lv2_ttl_generator
 	@$(CURDIR)/dpf/utils/generate-ttl.sh
@@ -47,6 +48,7 @@ endif
 	#$(MAKE) clean -C plugins/States
 	$(MAKE) clean -C plugins/si-d1
 	$(MAKE) clean -C plugins/si-d2
+	$(MAKE) clean -C plugins/si-l1
 
 
 # --------------------------------------------------------------
