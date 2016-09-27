@@ -48,8 +48,8 @@ SiL1Ui::SiL1Ui()
 	slopeKnob = new ImageKnob(this, knobImage, ImageKnob::Vertical);
 	slopeKnob->setId(SiL1Plugin::paramSlope);
 	slopeKnob->setAbsolutePos(15, 15);
-	slopeKnob->setRange(-48.0f, 0.0f);
-	slopeKnob->setDefault(-3.0f);
+	slopeKnob->setRange(0.0f, 1.0f);
+	slopeKnob->setDefault(0.25f);
 	slopeKnob->setRotationAngle(240);
 	slopeKnob->setCallback(this);
 

@@ -40,8 +40,11 @@ namespace sherman
 {
 	SiL1Plugin::SiL1Plugin()
 		: Plugin(paramCount, 1, 0),
-		slope(-3.0f),
-		active(1.0f), cutoff(8000.0f)
+		slope(0.25f),
+		cutoff(8000.0f),
+		lastBufferLastSample(0.0f),
+		beta(0.25f),
+		active(1.0f)
 	{
 		loadProgram(0);
 		deactivate();
@@ -94,9 +97,9 @@ namespace sherman
 		parameter.name = "Slope";
 		parameter.symbol = "slope";
 		parameter.unit = "dB";
-		parameter.ranges.def = -3.0f;
-		parameter.ranges.min = -48.0f;
-		parameter.ranges.max = 0.0f;
+		parameter.ranges.def = 0.25f;
+		parameter.ranges.min = 0.0f;
+		parameter.ranges.max = 1.0f;
 	}
 
 	void SiL1Plugin::setupParamCutoff(Parameter& parameter)
@@ -178,11 +181,14 @@ namespace sherman
 
 	void SiL1Plugin::run(const float** inputs, float** outputs, uint32_t frames)
 	{
-
-		for (uint32_t i = 0; i < frames; ++i)
+		beta = slope;
+		outputs[0][0] = beta * inputs[0][0] + (1-beta) * lastBufferLastSample;
+		for (uint32_t i = 1; i < frames; ++i)
 		{
-			outputs[0][i] = inputs[0][i];
+			outputs[0][i] = beta * inputs[0][i] + (1-beta) * outputs[0][i-1];
 		}
+
+		lastBufferLastSample = outputs[0][frames-1];
 	}
 
 

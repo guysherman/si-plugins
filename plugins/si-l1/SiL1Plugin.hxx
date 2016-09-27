@@ -111,6 +111,8 @@ namespace sherman
 
 		float slope;
 		float cutoff;
+		float lastBufferLastSample;
+		float beta;
 		float active;
 
 
