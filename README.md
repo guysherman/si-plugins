@@ -44,7 +44,7 @@ ladspa and lv2.
 # Plugins
 
 ## SI-D1 - SI Distortion #1
-This is a really basic ditortion, based off the idea of how a simple analogue overdrive works: a diode network is used
+This is a really basic distortion, based off the idea of how a simple analogue overdrive works: a diode network is used
 such that when the voltage gets high enough, some current flows backgwards through the diode to ground. This way, there is
 a hard limit on the voltage across the output. So I did the same with the plugin - it's really rough overdrive because it
 is very hard clipping, literally a set of conditional statements clamping the output.
@@ -55,7 +55,7 @@ There are three knobs on the plugin: Gain, Bias and Range.
 	rather it is a bias applied to the clipping thresholds.
 *	Range sets the distance between the clipping thresholds. So, with a bias of 0 and a range of 1, signals will clip at +/- 0.5.
 
-## SI-D2 - SI Distorion #2
+## SI-D2 - SI Distortion #2
 This is a slightly more advanced distortion - tanh(ax) where `a` is a coefficient that can range from 0.5 to 2, and x is the input sample. This gives a smooth(ish) edge to the clipping, which the user can control with the 'Slope' parameter.
 
 There are three knobs:
