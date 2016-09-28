@@ -45,13 +45,13 @@ SiL1Ui::SiL1Ui()
 	backgroundImage(Art::backgroundData, Art::backgroundWidth, Art::backgroundHeight, GL_BGRA)
 {
 	Image knobImage(Art::knobData, Art::knobWidth, Art::knobHeight);
-	slopeKnob = new ImageKnob(this, knobImage, ImageKnob::Vertical);
-	slopeKnob->setId(SiL1Plugin::paramSlope);
-	slopeKnob->setAbsolutePos(15, 15);
-	slopeKnob->setRange(0.0f, 1.0f);
-	slopeKnob->setDefault(0.25f);
-	slopeKnob->setRotationAngle(240);
-	slopeKnob->setCallback(this);
+	// slopeKnob = new ImageKnob(this, knobImage, ImageKnob::Vertical);
+	// slopeKnob->setId(SiL1Plugin::paramSlope);
+	// slopeKnob->setAbsolutePos(15, 15);
+	// slopeKnob->setRange(-48.0f, 0.0f);
+	// slopeKnob->setDefault(-6.0f);
+	// slopeKnob->setRotationAngle(240);
+	// slopeKnob->setCallback(this);
 
 	cutoffKnob = new ImageKnob(this, knobImage, ImageKnob::Vertical);
 	cutoffKnob->setId(SiL1Plugin::paramCutoff);
@@ -72,9 +72,9 @@ SiL1Ui::SiL1Ui()
 	{
 		switch(index)
 		{
-			case SiL1Plugin::paramSlope:
-			slopeKnob->setValue(value);
-			break;
+			//case SiL1Plugin::paramSlope:
+			//slopeKnob->setValue(value);
+			//break;
 			case SiL1Plugin::paramCutoff:
 			cutoffKnob->setValue(value);
 			break;
@@ -89,7 +89,7 @@ SiL1Ui::SiL1Ui()
 			return;
 		}
 
-		slopeKnob->setValue(-3.0f);
+		//slopeKnob->setValue(-3.0f);
 	}
 
 	// -------------------------------------------------------------------

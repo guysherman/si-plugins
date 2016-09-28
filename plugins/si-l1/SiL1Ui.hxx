@@ -68,7 +68,7 @@ namespace sherman
 	private:
 		Image backgroundImage;
 
-		ScopedPointer<ImageKnob> slopeKnob;
+		//ScopedPointer<ImageKnob> slopeKnob;
 		ScopedPointer<ImageKnob> cutoffKnob;
 
 

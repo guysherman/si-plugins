@@ -40,10 +40,10 @@ namespace sherman
 {
 	SiL1Plugin::SiL1Plugin()
 		: Plugin(paramCount, 1, 0),
-		slope(0.25f),
+		slope(-6.0f),
 		cutoff(8000.0f),
 		lastBufferLastSample(0.0f),
-		beta(0.25f),
+		beta(0.0f),
 		active(1.0f)
 	{
 		loadProgram(0);
@@ -61,14 +61,18 @@ namespace sherman
 			return;
 		}
 
-		slope = -3.0f;
+		slope = -6.0f;
 		cutoff = 8000.0f;
+
 
 		activate();
 	}
 
 	void SiL1Plugin::activate()
 	{
+		float rate = (float)getSampleRate();
+		this->beta = 1 - pow(M_E, (((-2*M_PI)*cutoff)/rate));
+		//printf("Rate: %f.4; Beta: %f.6\n", rate, this->beta);
 		active = 1.0f;
 	}
 
@@ -97,9 +101,9 @@ namespace sherman
 		parameter.name = "Slope";
 		parameter.symbol = "slope";
 		parameter.unit = "dB";
-		parameter.ranges.def = 0.25f;
-		parameter.ranges.min = 0.0f;
-		parameter.ranges.max = 1.0f;
+		parameter.ranges.def = -6.0f;
+		parameter.ranges.min = -48.0f;
+		parameter.ranges.max = 0.0f;
 	}
 
 	void SiL1Plugin::setupParamCutoff(Parameter& parameter)
@@ -174,14 +178,16 @@ namespace sherman
 
 	void SiL1Plugin::setCutoff(float cutoff)
 	{
+		float rate = (float)getSampleRate();
 		this->cutoff = cutoff;
+		this->beta = 1 - pow(M_E, (((-2*M_PI)*cutoff)/rate));
+		//printf("Rate: %f.4; Beta: %f.6\n", rate, this->beta);
 	}
 
 
 
 	void SiL1Plugin::run(const float** inputs, float** outputs, uint32_t frames)
 	{
-		beta = slope;
 		outputs[0][0] = beta * inputs[0][0] + (1-beta) * lastBufferLastSample;
 		for (uint32_t i = 1; i < frames; ++i)
 		{
