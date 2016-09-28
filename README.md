@@ -64,6 +64,16 @@ There are three knobs:
 *	Level - essentially an attenuator (in case it gets too loud)
 
 
+## SI-L1 - SI Low-pass Filter #1
+This is a really simple, first-order low-pass filter of the form:
+
+```y[i] = B * x[i] + (1-B) * y[i-1]```
+
+Where `B` is calculated from the 'Cutoff' parameter through the formula:
+
+```B = 1 - e^(((-2*PI)*Cutoff)/SampleRate)```
+
+
 
 
 # Other notes
