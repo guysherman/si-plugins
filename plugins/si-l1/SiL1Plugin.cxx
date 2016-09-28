@@ -85,9 +85,9 @@ namespace sherman
 	{
 		switch (index)
 		{
-			case paramSlope:
-				setupParamSlope(parameter);
-				break;
+			// case paramSlope:
+			// 	setupParamSlope(parameter);
+			// 	break;
 			case paramCutoff:
 				setupParamCutoff(parameter);
 				break;
@@ -137,8 +137,8 @@ namespace sherman
 
 		switch(index)
 		{
-			case paramSlope:
-				return getSlope();
+			// case paramSlope:
+			// 	return getSlope();
 			case paramCutoff:
 				return getCutoff();
 
@@ -161,9 +161,9 @@ namespace sherman
 	{
 		switch (index)
 		{
-			case paramSlope:
-				setSlope(value);
-				break;
+			// case paramSlope:
+			// 	setSlope(value);
+			// 	break;
 			case paramCutoff:
 				setCutoff(value);
 				break;
