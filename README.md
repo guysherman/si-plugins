@@ -69,9 +69,19 @@ This is a really simple, first-order low-pass filter of the form:
 
 ```y[i] = B * x[i] + (1-B) * y[i-1]```
 
-Where `B` is calculated from the 'Cutoff' parameter through the formula:
+Where x is the stream of inputs, and y is the stream of output values and `B` is calculated from the 'Cutoff' parameter through the formula:
 
 ```B = 1 - e^(((-2*PI)*Cutoff)/SampleRate)```
+
+
+## SI-H1 - SI High-pass Filter #1
+This is a really simple, first-order low-pass filter of the form:
+
+```y[i] = B * (y[i-1] + x[i] - x[i-1])```
+
+Where x is the stream of inputs, and y is the stream of output values and `B` is calculated from the 'Cutoff' parameter through the formula:
+
+```B = e^(((-2*PI)*Cutoff)/SampleRate)```
 
 
 
