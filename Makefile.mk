@@ -85,8 +85,17 @@ endif
 
 ifeq ($(LINUX),true)
 HAVE_DGL   = $(shell pkg-config --exists gl x11 && echo true)
-HAVE_JACK  = $(shell pkg-config --exists jack   && echo true)
-HAVE_LIBLO = $(shell pkg-config --exists liblo  && echo true)
+ifneq ($(HAVE_DGL),true)
+$(warning Missing gl, x11, or both, you won't get a GUI)
+endif
+HAVE_JACK  = $(shell pkg-config --exists jack && echo true)
+ifneq ($(HAVE_JACK),true)
+$(warning Missing jack, you won't get a standalone executable)
+endif
+HAVE_LIBLO = $(shell pkg-config --exists liblo && echo true)
+ifneq ($(HAVE_LIBLO),true)
+$(warning Missing liblo, you won't get osc in your standalone executables)
+endif
 endif
 
 ifeq ($(MACOS),true)
