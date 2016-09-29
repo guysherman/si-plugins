@@ -45,8 +45,8 @@ namespace sherman
 	  memset(&resampled_1, 0x00, 4096);
 	  memset(&resampled_2, 0x00, 4096);
 
-	  upConverter = src_new(SRC_SINC_BEST_QUALITY, 1, &upConverterError);
-	  downConverter = src_new(SRC_SINC_BEST_QUALITY, 1, &downConverterError);
+	  upConverter = src_new(SRC_SINC_FASTEST, 1, &upConverterError);
+	  downConverter = src_new(SRC_SINC_FASTEST, 1, &downConverterError);
 
 		loadProgram(0);
 
@@ -236,11 +236,11 @@ namespace sherman
 		args_in.data_in = (float*)in1;		// I feel a bit dirty right now
 		args_in.data_out = &resampled_1[0];
 		args_in.input_frames = frames;
-		args_in.output_frames = frames * 2;
+		args_in.output_frames = frames * 4;
 		args_in.input_frames_used = 0;
 		args_in.output_frames_gen = 0;
 		args_in.end_of_input = 0;
-		args_in.src_ratio = 2;
+		args_in.src_ratio = 4;
 
 		src_process(upConverter, &args_in);
 
@@ -261,7 +261,7 @@ namespace sherman
 		args_out.input_frames_used = 0;
 		args_out.output_frames_gen = 0;
 		args_out.end_of_input = 0;
-		args_out.src_ratio = 0.5;
+		args_out.src_ratio = 0.25;
 
 		src_process(downConverter, &args_out);
 	}
