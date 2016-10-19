@@ -45,7 +45,7 @@ ladspa and lv2.
 
 ## SI-D1 - SI Distortion #1
 This is a really basic distortion, based off the idea of how a simple analogue overdrive works: a diode network is used
-such that when the voltage gets high enough, some current flows backgwards through the diode to ground. This way, there is
+such that when the voltage gets high enough, some current flows backwards through the diode to ground. This way, there is
 a hard limit on the voltage across the output. So I did the same with the plugin - it's really rough overdrive because it
 is very hard clipping, literally a set of conditional statements clamping the output.
 
@@ -69,13 +69,13 @@ This is a really simple, first-order low-pass filter of the form:
 
 ```y[i] = B * x[i] + (1-B) * y[i-1]```
 
-Where x is the stream of inputs, and y is the stream of output values and `B` is calculated from the 'Cutoff' parameter through the formula:
+Where x is the stream of inputs, and y is the stream of output values, and `B` is calculated from the 'Cutoff' parameter through the formula:
 
 ```B = 1 - e^(((-2*PI)*Cutoff)/SampleRate)```
 
 
 ## SI-H1 - SI High-pass Filter #1
-This is a really simple, first-order low-pass filter of the form:
+This is a really simple, first-order high-pass filter of the form:
 
 ```y[i] = B * (y[i-1] + x[i] - x[i-1])```
 
