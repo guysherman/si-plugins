@@ -73,6 +73,27 @@ Where x is the stream of inputs, and y is the stream of output values, and `B` i
 
 ```B = 1 - e^(((-2*PI)*Cutoff)/SampleRate)```
 
+## SI-L2 - SI Low-pass Filter #2
+This is a Butterworth filter of the form:
+
+```y[i] = b0 * x[i] + b1 * x[i-1] + b2 * x[i-2] + a1 * y[i-1] + a2 * [i-2]```
+
+Where `x` is the stream of inputs, and `y` is the stream of output values, and the coefficients are calculated as follows:
+
+```
+# these first three are intermediate values
+float ff = cutoff/sample;
+const double ita = 1.0 / tan(M_PI*ff);
+const double q = sqrt(2.0);
+
+b0 = 1.0 / (1.0 + q*ita + ita*ita);
+b1 = 2*b0;
+b2 = b0;
+
+a1 = 2.0 * (ita*ita - 1.0) * b0;
+a2 = -1*(1.0 - q*ita + ita*ita) * b0;
+```
+
 
 ## SI-H1 - SI High-pass Filter #1
 This is a really simple, first-order high-pass filter of the form:
