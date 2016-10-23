@@ -17,8 +17,8 @@
 
 */
 
-#ifndef __SiL2Plugin_HXX__
-#define __SiL2Plugin_HXX__
+#ifndef __SiH2Plugin_HXX__
+#define __SiH2Plugin_HXX__
 
 // C++ Standard Headers
 
@@ -37,7 +37,7 @@
 
 namespace sherman
 {
-	class SiL2Plugin : public Plugin
+	class SiH2Plugin : public Plugin
 	{
 	public:
 		enum Parameters
@@ -47,13 +47,13 @@ namespace sherman
 			paramCount
 		};
 
-		SiL2Plugin();
-		virtual ~SiL2Plugin();
+		SiH2Plugin();
+		virtual ~SiH2Plugin();
 
 	protected:
 		const char* getLabel() const noexcept override
 	{
-		return "LowPass-2";
+		return "HighPass-2";
 	}
 
 	const char* getMaker() const noexcept override
@@ -73,7 +73,7 @@ namespace sherman
 
 	int64_t getUniqueId() const noexcept override
 	{
-		return d_cconst('S', 'I', 'L', '2');
+		return d_cconst('S', 'I', 'H', '2');
 	}
 
 	// -------------------------------------------------------------------
@@ -112,16 +112,18 @@ namespace sherman
 
 		float slope;
 		float cutoff;
+		float lastBufferLastSampleIn;
+		float lastBufferLastSampleOut;
 		float x1, x2, y1, y2;
-		float a1,a2,b0,b1,b2;
+		float a1, a2, b0, b1, b2;
 		float active;
 
 
-		DISTRHO_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SiL2Plugin)
+		DISTRHO_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(SiH2Plugin)
 	};
 }
 
 
 
 
-#endif // __SiL2Plugin_HXX__
+#endif // __SiH2Plugin_HXX__
