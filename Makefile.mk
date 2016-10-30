@@ -21,6 +21,8 @@ endif
 endif
 endif
 
+
+
 # --------------------------------------------------------------
 # Set build and link flags
 
@@ -154,5 +156,18 @@ SHARED = -shared
 ifeq ($(MACOS),true)
 SHARED = -dynamiclib
 endif
+
+# --------------------------------------------------------------
+# Set up some xpiling stuff
+ifeq ($(MINGW32),true)
+BASE_FLAGS += -I/usr/local/include
+LINK_FLAGS += -L/usr/local/lib -static-libgcc -static-libstdc++ -static -lpthread
+endif
+
+ifeq ($(MINGW64),true)
+BASE_FLAGS += -I/usr/local/include
+LINK_FLAGS += -L/usr/local/lib -static-libgcc -static-libstdc++ -static -lpthread
+endif
+
 
 # --------------------------------------------------------------
