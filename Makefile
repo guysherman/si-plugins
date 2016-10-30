@@ -29,7 +29,11 @@ plugins: libs
 	$(MAKE) all -C plugins/si-h2
 
 gen: plugins dpf/utils/lv2_ttl_generator
+ifneq ($(MINGW64),true)
+ifneq ($(MINGW32),true)
 	@$(CURDIR)/dpf/utils/generate-ttl.sh
+endif
+endif
 ifeq ($(MACOS),true)
 	@$(CURDIR)/dpf/utils/generate-vst-bundles.sh
 endif

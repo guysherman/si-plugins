@@ -40,6 +40,38 @@ Its that simple, look in the `bin` folder and you'll have the plugin(s) built. Y
 to the right place to use them, I found that /usr/local/lib/ladspa and /usr/local/lib/lv2 worked respectively for
 ladspa and lv2.
 
+## Cross-compiling for Windows
+
+This can be done using the mingw-w64 toolchain. On Ubuntu I installed it with
+```
+sudo apt install mingw-w64
+```
+
+You will need to cross-compile libsamplerate (http://www.mega-nerd.com/SRC/) first. This was easily done with :
+
+```
+./configure --build=x86_64-linux host=x86_64-w64-mingw32 --enable-shared=no --enable-static=yes
+make
+make install
+```
+
+NB: because I was using an Ubuntu environment only used for cross-compilation, I was happy to install
+my cross-compiled libs into /usr/local, but you may want to specify a different --prefix when you configure it. If you do so, you will need to edit the following two files in this repository:
+
+```
+<repo root>/Makefile.mk
+<repo root>/dpf/dgl/Makefile.mk
+```
+
+You will find near the end of these two files, some extra flags for cross-compilation, and you'll need
+to add your prefix root to the include and link flags respectively.
+
+One step that will have to be done separately is generating the lv2 ttl files. This will either need to be done with the linux version of the tool (created via a standard linux build), or with the windows exe, run from the Windows command prompt. If running on Windows do the following from the source root (assuming a cross-compile build):
+
+```
+dpf\utils\generate-ttl.bat
+```
+
 
 # Plugins
 
