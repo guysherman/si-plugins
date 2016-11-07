@@ -140,7 +140,7 @@ Where x is the stream of inputs, and y is the stream of output values and `B` is
 
 This is also a 2nd order Butterworth filter, but by applying a few extra steps in calculating the coefficients, we get a High-pass filter instead. Apparently.
 
-Having calculated the coefficients as above, we do the following:
+Having calculated the coefficients as in SI-L2, we do the following:
 
 ```
 b0 = b0 * ita * ita;
