@@ -136,6 +136,18 @@ Where x is the stream of inputs, and y is the stream of output values and `B` is
 
 ```B = e^(((-2*PI)*Cutoff)/SampleRate)```
 
+## SI-H2 - SI High-pass Filter #2
+
+This is also a 2nd order Butterworth filter, but by applying a few extra steps in calculating the coefficients, we get a High-pass filter instead. Apparently.
+
+Having calculated the coefficients as above, we do the following:
+
+```
+b0 = b0 * ita * ita;
+b1 = -b1 * ita * ita;
+b2 = b2 * ita * ita;
+```
+
 
 
 
